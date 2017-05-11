@@ -1,0 +1,13 @@
+{
+  "name": "ntcore-node",
+  "version": "0.0.1",
+  "main": "main.js",
+  "dependencies": {
+    "ffi": "latest",
+    "ref": "latest",
+    "ref-struct": "latest",
+    "enum": "latest",
+    "ref-union": "latest",
+    "sleep": "latest"
+  }
+}
