@@ -199,7 +199,7 @@ exports.createEntryListener = createEntryListener;
 exports.addEntryListener = function (prefix, listener, flags) {
     prefix = fix_key(prefix);
     let valuePtr = ref.alloc(NT_Value);
-    lib.NT_AddEntryListener(prefix, prefix.length + 1, valuePtr, createEntryListener(listener), flags);
+    lib.NT_AddEntryListener(prefix, prefix.length, valuePtr, createEntryListener(listener), flags);
 };
 
 exports.addConnectionListener = function (listener, immediateNotify = false) {
