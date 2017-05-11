@@ -131,18 +131,41 @@ function fix_key(key) {
 const lib = ffi.Library('./ntcore/Linux/amd64/libntcore', {
     // void NT_StartClient(const char* server_name, unsigned int port);
     'NT_StartClient': ['void', [cstr, int_t]],
+
     // void NT_SetUpdateRate(double interval);
     'NT_SetUpdateRate': ['void', [double_t]],
+
+    // unsigned int NT_AddConnectionListener(void* data, NT_ConnectionListenerCallback callback, int immediate_notify);
     'NT_AddConnectionListener': [uint_t, ['void *', 'void*', int_t]],
+
+    // void NT_RemoveConnectionListener(unsigned int conn_listener_uid);
     'NT_RemoveConnectionListener': ['void', [uint_t]],
+
+    //unsigned int NT_AddEntryListener(const char* prefix, size_t prefix_len, void* data, NT_EntryListenerCallback callback, unsigned int flags);
     'NT_AddEntryListener': [uint_t, [cstr, size_t, 'void *', 'pointer', uint_t]],
+
+    // void NT_RemoveEntryListener(unsigned int entry_listener_uid);
     'NT_RemoveEntryListener': ['void', [uint_t]],
+
+    // void NT_Flush(void);
     'NT_Flush': ['void', []],
+
+    // int NT_GetEntryBoolean(const char* name, size_t name_len, unsigned long long* last_change, int* v_boolean);
     'NT_GetEntryBoolean': [int_t, [cstr, size_t, unsigned_long_long_ptr, int_ptr]],
+
+    // int NT_GetEntryDouble(const char* name, size_t name_len, unsigned long long* last_change, double* v_double);
     'NT_GetEntryDouble': [int_t, [cstr, size_t, unsigned_long_long_ptr, double_ptr]],
+
+    // char* NT_GetEntryString(const char* name, size_t name_len, unsigned long long* last_change, size_t* str_len);
     'NT_GetEntryString': [cstr, [cstr, size_t, unsigned_long_long_ptr, size_ptr]],
+
+    // int NT_SetEntryBoolean(const char* name, size_t name_len, int v_boolean, int force);
     'NT_SetEntryBoolean': [int_t, [cstr, size_t, int_t, int_t]],
+
+    // int NT_SetEntryDouble(const char* name, size_t name_len, double v_double, int force);
     'NT_SetEntryDouble': [int_t, [cstr, size_t, double_t, int_t]],
+
+    // int NT_SetEntryString(const char* name, size_t name_len, const char* str, size_t str_len, int force);
     'NT_SetEntryString': [int_t, [cstr, size_t, cstr, int_t, int_t]]
 });
 
