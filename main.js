@@ -7,12 +7,9 @@ console.log('Hello, world!');
 ntcore.connectToServer('localhost');
 ntcore.setUpdateRate(0.01);
 
-let listener = (id, data, key, key_len, value, flags) => {
-    console.log("ntcore listener was called!");
-    console.log('ID = ' + id);
-    console.log('Data = ' + data);
+const rootListener = (key, value, flags) => {
+    console.log("\nntcore listener was called!");
     console.log('Key = ' + key);
-    console.log('Key length = ' + key_len);
     console.log('Value = ' + value);
     console.log('Flags = ' + flags);
 };
@@ -22,9 +19,9 @@ ntcore.addConnectionListener((uid, connected, info) => {
     console.log(`Connected: ${connected}, server: ${info.remote_ip.ptr}:${info.remote_port}`);
 }, true);
 
-ntcore.addEntryListener('', listener, 0xFF);
+ntcore.addEntryListener('', rootListener, 0xFF);
 
-sleep.msleep(500);
+sleep.msleep(1000);
 
 // while (true) {
 //     ntcore.putBoolean('bool', true);

@@ -162,18 +162,37 @@ const listeners = [];
 
 /**
  * Creates a network table entry listener that invokes the given function.
- * @param jsFunction the listener function
+ * @param jsFunction the listener function. This takes three parameters: The key, the value, and the flags for that key.
  * @returns {*} an FFI callback pointer
  */
 createEntryListener = function (jsFunction) {
     let cb = ffi.Callback('void', [uint_t, 'pointer', cstr, size_t, NT_Value_ptr, uint_t],
-        function (id, data, key, key_length, value, flags) {
-            jsFunction(id, data.deref(), key, key_length, value.deref(), flags);
+        (id, data, key, key_length, value, flags) => {
+            value = value.deref();
+            var realValue;
+            switch (value.type) {
+                case NT_Type.NT_UNASSIGNED.value:
+                    console.log('UNASSIGNED');
+                    realValue = null;
+                    break;
+                case NT_Type.NT_BOOLEAN.value:
+                    realValue = value.data.v_boolean === 1;
+                    break;
+                case NT_Type.NT_DOUBLE.value:
+                    realValue = value.data.v_double;
+                    break;
+                case NT_Type.NT_STRING.value:
+                    realValue = value.data.v_string;
+                    break;
+                default:
+                    console.log(`Unknown type ${NT_Type.from(value.type)}`);
+                    realValue = null;
+                    break;
+            }
+
+            jsFunction(key, realValue, flags);
         });
     // Reference the callback to prevent GC
-    process.on('exit', () => {
-        cb
-    });
     listeners.push(cb);
     return cb;
 };
