@@ -22,7 +22,7 @@ ntcore.addConnectionListener((uid, connected, info) => {
     console.log(`Connected: ${connected}, server: ${info.remote_ip.ptr}:${info.remote_port}`);
 }, true);
 
-ntcore.addEntryListener('/a_string', listener, 0xFF);
+ntcore.addEntryListener('', listener, 0xFF);
 
 sleep.msleep(500);
 
