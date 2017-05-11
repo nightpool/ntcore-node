@@ -18,12 +18,13 @@ let listener = (id, data, key, key_len, value, flags) => {
 };
 
 ntcore.addConnectionListener((uid, connected, info) => {
-    console.log('hello does this work')
+    console.log('Connection changed');
+    console.log(`Connected: ${connected}, server: ${info.remote_ip.ptr}:${info.remote_port}`);
 }, true);
 
-ntcore.lib.NT_AddEntryListener(ref.NULL_POINTER, ref.NULL_POINTER, ref.NULL_POINTER, ref.NULL_POINTER, ref.NULL_POINTER);
-
 ntcore.addEntryListener('/a_string', listener, 0xFF);
+
+sleep.msleep(500);
 
 // while (true) {
 //     ntcore.putBoolean('bool', true);
