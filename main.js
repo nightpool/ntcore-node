@@ -21,14 +21,12 @@ ntcore.addConnectionListener((uid, connected, info) => {
 
 ntcore.addEntryListener('', rootListener, 0xFF);
 
-sleep.msleep(1000);
+setInterval(function(){
+    ntcore.putBoolean('bool', true);
+    ntcore.putNumber('num', 123.123123);
+    ntcore.putString('a_string', 'foobarbaz');
 
-// while (true) {
-//     ntcore.putBoolean('bool', true);
-//     ntcore.putNumber('num', 123.123123);
-//     ntcore.putString('a_string', 'foobarbaz');
-//
-//     ntcore.putBoolean('subtable/a_boolean', false);
-//     ntcore.putNumber('subtable/a_number', 65535);
-//     ntcore.putString('subtable/a_string', 'nothing to see here');
-// }
+    ntcore.putBoolean('subtable/a_boolean', false);
+    ntcore.putNumber('subtable/a_number', 65535);
+    ntcore.putString('subtable/a_string', 'nothing to see here');
+}, 100);

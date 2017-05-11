@@ -128,7 +128,7 @@ function fix_key(key) {
  * These are direct library calls and are dangerous to use;
  * the convenience functions defined in this module offer safe access to these functions.
  */
-const lib = ffi.Library('./ntcore/Linux/amd64/libntcore', {
+const lib = ffi.Library('libntcore', {
     // void NT_StartClient(const char* server_name, unsigned int port);
     'NT_StartClient': ['void', [cstr, int_t]],
 
@@ -215,7 +215,6 @@ createEntryListener = function (jsFunction) {
 
             jsFunction(key, realValue, flags);
         });
-    // Reference the callback to prevent GC
     listeners.push(cb);
     return cb;
 };
